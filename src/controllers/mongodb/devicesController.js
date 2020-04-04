@@ -142,6 +142,9 @@ const deleteDevice = async(req,res)=>{
 //Mostramos el 'dashboard' de dispositivo
 const getSingleDevice= async(req,res)=>{
 
+    /*Realizamos una busqueda dentro de la base de datos*/
+    const devices = await Device.find({userOwnerId: req.user.id}).sort({ date: "desc" }).lean();
+
     //Importamos la conexion del servidor de Sockets
     const connectionSocket = require('../../lib/socketManager').connection();
 
@@ -166,7 +169,8 @@ const getSingleDevice= async(req,res)=>{
             
             //Si NO existe el 'user' devolvemos un estado de error
             if(error){
-                return res.status(404).send('El TOKEN ES INCORRRECTO o hay un error de servidor');
+                console.log('Token No valido')
+                //return res.status(404).send('El TOKEN ES INCORRRECTO o hay un error de servidor');
             }else{
 
                 //Mostramos en consola
