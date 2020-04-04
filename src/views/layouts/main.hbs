@@ -44,12 +44,12 @@
         {{{ body }}}
     </main>
 
-    <!--Con este script gestionamos la grafica-->
-    <script src="/static/js/gauge.js"></script>
+    {{> messages}}
 
-    <!-- Scritps -->
-    <script src="/static/js/main.js"></script>
-    
+    <!--Scripts: solo se cargan si el usuario  esta logeado-->
+
+    {{> scripts}}
+        
 </body>
 
 </html>

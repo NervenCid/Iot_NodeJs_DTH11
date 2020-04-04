@@ -143,7 +143,9 @@ const deleteDevice = async(req,res)=>{
 const getSingleDevice= async(req,res)=>{
 
     /*Realizamos una busqueda dentro de la base de datos*/
-    const devices = await Device.find({userOwnerId: req.user.id}).sort({ date: "desc" }).lean();
+    const device = await Device.findById( req.params.id );
+
+    console.log('device: ', device)
 
     //Importamos la conexion del servidor de Sockets
     const connectionSocket = require('../../lib/socketManager').connection();
@@ -187,16 +189,16 @@ const getSingleDevice= async(req,res)=>{
     };
 
     //Armamos el topic
-    let user=req.user.id; 
-    let device=req.params.id;
-    let topic=user+'/'+device;
-    console.log('topic', topic); 
+    //let user=req.user.id; 
+    //device=req.params.id;
+    //topic=user+'/'+device;
+    //console.log('topic', topic); 
 
     //Registramos un dato recibido por mqtt y lo enviamos al 'socket'
-    connectionMqtt.registerMQTT(topic, sendToSocket);
+    //connectionMqtt.registerMQTT(topic, sendToSocket);
 
     //Renderizamos
-    res.render('devices/detail-device');
+    res.render('devices/detail-device', {device});
 
 }
 
