@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>IOT</title>
+
+    <!--CSS-->
+
+    <!-- BOOTSTRAP - BOOTSWATCH THEME - Cyborg -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="/static/fontawesome/css/all.css">
+    <script src="/static/fontawesome/js/all.js"></script>
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+
+    <!--JS-->
+
+    <!-- JQUERY -->
+    <script src="/static/js/jquery-3.4.1.min.js"></script>
+    <!-- PLOTLY -->
+    <script src="/static/js/plotly-latest.min.js"></script>  
+    <!--Importamos socket.io-->
+    <script src="/static/js/socket.io.js"></script>  
+    <!--BOOTSTRAP-->    
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+</head>
+
+<body>
+
+    <!--Esto es sintaxis de handlebars y renderiza lo que este dentro del archivo add.hbs-->
+
+    <!--Llamamos la navegacion-->
+
+    {{> navigation }}
+
+    <!--Llamamos el mensaje 'success' en caso de que se cree un nuevo post-->
+    {{> messages}}
+
+    <main class="container p-5">
+        {{{ body }}}
+    </main>
+
+    <!--Con este script gestionamos la grafica-->
+    <script src="/static/js/gauge.js"></script>
+
+    <!-- Scritps -->
+    <script src="/static/js/main.js"></script>
+    
+</body>
+
+</html>

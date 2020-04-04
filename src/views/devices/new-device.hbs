@@ -1,0 +1,24 @@
+<div class="col-md-4 mx-auto">
+    <div class="card text-center">
+        <div class="card-header">
+            Nuevo dispositivo
+        </div>
+        <div class="card-body">
+            <form action="/devices/add" method="POST">
+                <div class="form-group">
+                    <input type="text" name="deviceName" class="form-control" placeholder="Nombre del dispositivo" autofocus />
+                </div>
+                <!--
+                <div class="form-group">
+                    <textarea name="description" class="form-control" placeholder="Descripcion"></textarea>
+                </div>
+                -->
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="submit">
+                        Guardar Dispositivo
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
