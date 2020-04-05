@@ -2,13 +2,12 @@
 var data = [
     {
         domain: { x: [0, 1], y: [0, 1] },
-        value: 450,
+        value: 0,
         title: {
             text: "Variable recibida de la Pycom" },
             type: "indicator",
             mode: "gauge+number",
-            delta: { reference: 400 },
-            gauge: { axis: { range: [null, 500] } }
+            gauge: { axis: { range: [null, 60] } }
         }
     ];
 
@@ -30,11 +29,11 @@ function updateGauge(gaugeValue) {
     }, {
         //Aqui definimos transiciones, duraciones y modos de animacion
         transition: {
-            duration: 500,
+            duration: 1,
             easing: 'cubic-in-out'
             },
         frame: {
-                duration: 500
+                duration: 5
             }
         }
     )

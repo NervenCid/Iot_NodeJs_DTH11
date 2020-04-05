@@ -160,6 +160,9 @@ const getSingleDevice= async(req,res)=>{
         //Conversion de los datos
         let data = JSON.parse(d.replace(/'/g,"\""));
 
+        connectionSocket.sendEvent('temperature', data.temperature);
+        connectionSocket.sendEvent('humidity', data.humidity);
+
         //console.log('Enviando al Socket: ',data.token);  
         //console.log('Enviando al Socket: ',data.temperature);  
         //console.log('Enviando al Socket: ',data.humidity); 
@@ -167,7 +170,8 @@ const getSingleDevice= async(req,res)=>{
         //Verificamos el 'token'
         //Notese que dentro de 'decoded' se encuentra el 'id' del 'user'
         //al que le corresponde dicho 'id'
-        await jwt.verify(data.token, config.secret, async (error, decoded) => {
+        
+        await jwt.verify(data.token, config.secret, (error, decoded) => {
             
             //Si NO existe el 'user' devolvemos un estado de error
             if(error){
@@ -176,26 +180,27 @@ const getSingleDevice= async(req,res)=>{
             }else{
 
                 //Mostramos en consola
-                //console.log('decoded: ', decoded);  
+                //console.log('token: ', data.token);
+                //console.log('topic', topic);
+                console.log('decoded: ', decoded);
 
                 //Enviamos por el socket
-                await connectionSocket.sendEvent('temperature', data.temperature);
-                await connectionSocket.sendEvent('humidity', data.humidity);
+                connectionSocket.sendEvent('temperature', data.temperature);
+                connectionSocket.sendEvent('humidity', data.humidity);
                 
             };     
 
         });
+        
 
     };
 
     //Armamos el topic
-    //let user=req.user.id; 
-    //device=req.params.id;
-    //topic=user+'/'+device;
-    //console.log('topic', topic); 
+    topic=device.userOwnerId+'/'+device._id;
+    console.log('topic', topic); 
 
     //Registramos un dato recibido por mqtt y lo enviamos al 'socket'
-    //connectionMqtt.registerMQTT(topic, sendToSocket);
+    connectionMqtt.registerMQTT(topic, sendToSocket);
 
     //Renderizamos
     res.render('devices/detail-device', {device});

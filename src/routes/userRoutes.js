@@ -5,7 +5,9 @@ const path = require('path');
 const express = require('express');
 const router = express.Router();
 
-const passport = require('passport');
+//Llamamos al autenticador
+////Protegemos las rutas con 'isNotloggedin' y con  'isLoggedIn'
+const {isLoggedIn, isNotloggedin} = require('../lib/auth');
 
 //Llamamos al controlador segun la configuracion de la base de datos
 //Usamos el archivo .env
@@ -16,6 +18,7 @@ const {
     signIn,
     getSignUp,
     signUp,
+    profile,
     logout} = require(path.join(__dirname, '..', 'controllers', process.env.DATABASE_MODE, 'usersController'));
 
 const User=require(path.join(__dirname, '..', 'models', process.env.DATABASE_MODE, 'UserDB'));
@@ -36,8 +39,11 @@ router.get('/users/signup', getSignUp);
 //Metodo 'POST' para registrarse
 router.post('/users/signup', signUp);
 
+//--------------------------------------------Accion: Ver el perfil de usuario-----------------------------------------
+router.get('/users/profile', isLoggedIn, profile);
+
 //----------------------------------------------Accion: Salir de la plataforma-----------------------------------------
-router.get('/users/logout', logout);
+router.get('/users/logout', isLoggedIn, logout);
 
 //Exportamos el modulo
 module.exports = router;

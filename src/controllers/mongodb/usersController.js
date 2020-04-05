@@ -80,6 +80,18 @@ const signUp = async (req, res) => {
 
 }
 
+//--------------------------------------------Profile-----------------------------------------------------
+
+//Accdemos al perfil de usuario
+const profile = async (req,res) => {
+
+    //Realizamos una consulta en la base de datos para obtener los datos de usuario
+    const user = await User.findById( req.user._id ).lean();;
+
+    //Renderizamos
+    res.render('profile', {user});
+}
+
 //----------------------------------------------logout----------------------------------------------------
 
 //Salimos de la plataforma
@@ -96,5 +108,6 @@ module.exports = {
     signIn,
     getSignUp,
     signUp,
+    profile,
     logout
 };
