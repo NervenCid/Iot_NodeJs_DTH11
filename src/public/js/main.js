@@ -38,4 +38,11 @@ window.onload = function(){
    
     });
 
+    //Recibimos del servidor del valor por medio de websockets
+    connection.on('id', function(data){
+
+        console.log('id: ', data);
+   
+    });
+
 };

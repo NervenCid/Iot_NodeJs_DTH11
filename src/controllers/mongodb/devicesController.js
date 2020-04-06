@@ -182,22 +182,32 @@ const getSingleDevice= async(req,res)=>{
                 //Mostramos en consola
                 //console.log('token: ', data.token);
                 //console.log('topic', topic);
-                console.log('decoded: ', decoded);
+                //console.log('decoded: ', decoded);
 
-                //Enviamos por el socket
-                connectionSocket.sendEvent('temperature', data.temperature);
-                connectionSocket.sendEvent('humidity', data.humidity);
+                if(decoded.id===device.userOwnerId){
+
+                    console.log('Identificador: ', device.userOwnerId+'/'+device._id);
+
+                    //Enviamos por el socket
+                    connectionSocket.sendEvent('temperature', data.temperature);
+                    connectionSocket.sendEvent('humidity', data.humidity);
+                    connectionSocket.sendEvent('id', device.userOwnerId+'/'+device._id);
+
+                }else{
+
+                    console.log('Identificador no valido: ', device.userOwnerId+'/'+device._id);
+
+                }
                 
             };     
 
         });
         
-
     };
 
     //Armamos el topic
     topic=device.userOwnerId+'/'+device._id;
-    console.log('topic', topic); 
+    console.log('topic: ', topic); 
 
     //Registramos un dato recibido por mqtt y lo enviamos al 'socket'
     connectionMqtt.registerMQTT(topic, sendToSocket);
