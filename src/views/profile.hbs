@@ -1,16 +1,14 @@
-<div class="container p-4">
-    <div class="row">
-        <div class="col-md-4 mx-auto">
-            <div class="card text-center">
-                <div class="card-body">
-                    <h3>Bienvenido {{user.name}}</h3>
-                    <h4>{{user.email}}</h4>
-                    <a href="/devices" class="btn btn-primary m-4">
-                        Ver dispositivos
-                    </a>
-                </div>
-            </div>
-        </div>
-
-    </div>
+<div class="card text-center">
+  <div class="card-header">
+    Perfil de usuario
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Nombre de usuario: </h5>
+    <p class="card-text">{{user.name}}</p>
+    <h5 class="card-title">Correo electrónico: </h5>
+    <p class="card-text">{{user.email}}</p>
+    <a href="/devices" class="btn btn-primary">Ver dispositivos</a>
+  </div>
 </div>
+
+

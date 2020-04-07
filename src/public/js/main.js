@@ -12,6 +12,9 @@ const connection = io(host);
 
 //Ejecutamos tan pronto se cargue la ventana
 window.onload = function(){   
+
+    //Identificador de dispositivo
+    let deviceId= document.getElementById('deviceId').innerHTML;
     
     //connection.emit('Prueba', 'Hello server from client');
 
@@ -22,26 +25,29 @@ window.onload = function(){
     });
 
     //Recibimos del servidor del valor por medio de websockets
-    connection.on('temperature', function(data){
+    connection.on(deviceId + '/temperature', function(data){
 
-        console.log('temperature: ', data);
+        //console.log('temperature: ', data);
 
         //Cambiamos el valor de la grafica
-        updateGauge(data);
+        updateGaugeTemperature(data);
    
     });
 
     //Recibimos del servidor del valor por medio de websockets
-    connection.on('humidity', function(data){
+    connection.on(deviceId + '/humidity', function(data){
 
-        console.log('humidity: ', data);
+        //console.log('humidity: ', data);
+
+        //Cambiamos el valor de la grafica
+        updateGaugeHumidity(data);
    
     });
 
     //Recibimos del servidor del valor por medio de websockets
-    connection.on('id', function(data){
+    connection.on(deviceId + '/id', function(data){
 
-        console.log('id: ', data);
+        //console.log('id: ', data);
    
     });
 

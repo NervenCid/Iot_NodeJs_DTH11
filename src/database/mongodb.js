@@ -22,3 +22,18 @@ mongoose.connect('mongodb://localhost/proyecto-final-bictia', {
     .then(db=>console.log('La base de datos esta conectada'))
     .catch(err=>console.error(err));
 
+
+    /*
+
+mongoose.connect('mongodb+srv://diego:admin@pycom-node-lfsc1.mongodb.net/test?retryWrites=true&w=majority', {
+
+
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true
+})
+    .then(db=>console.log('La base de datos esta conectada'))
+    .catch(err=>console.error(err));
+
+    */

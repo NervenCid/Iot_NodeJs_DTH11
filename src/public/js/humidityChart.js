@@ -1,5 +1,5 @@
 //Configuramos los parametros de la grafica (medidor circular)
-var data = [
+var dataHumidity = [
     {
         domain: { x: [0, 1], y: [0, 1] },
         value: 0,
@@ -12,15 +12,15 @@ var data = [
     ];
 
 //Creamos una configuracion para dimensionar la grafica
-var layout = { width: 600, height: 400 };
+var layoutHumidity = { width: 600, height: 400 };
 
 //Creamos la grafica
-Plotly.newPlot('temperature', data, layout);
+Plotly.newPlot('humidityChart', dataHumidity, layoutHumidity);
 
 //Con esta funcion actualizamos y animamos la grafica
-function updateGauge(gaugeValue) {
-    //Creamos una animacion de la grafica contenida dentro de 'temperature'
-    Plotly.animate('temperature',{
+function updateGaugeHumidity(gaugeValue) {
+    //Creamos una animacion de la grafica contenida dentro de 'humidityChart'
+    Plotly.animate('humidityChart',{
 
         //Aqui cambiamos el valor mostrado por la grafica
         data: [{value: gaugeValue}],

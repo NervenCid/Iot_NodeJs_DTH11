@@ -1,7 +1,12 @@
 
 {{#if device}}
-    <!--Con este script gestionamos la grafica-->
-    <script src="/static/js/gauge.js"></script>
+    <!--Con este script gestionamos la grafica para temperatura-->
+    <script src="/static/js/temperatureChart.js"></script>
+
+    <!--Con este script gestionamos la grafica para humedad-->
+    <script src="/static/js/humidityChart.js"></script>
+
+    <p id="deviceId" hidden>{{device._id}}</p>
 
     <!-- Scritps -->
     <script src="/static/js/main.js"></script>

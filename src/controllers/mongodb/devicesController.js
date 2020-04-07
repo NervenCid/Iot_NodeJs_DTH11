@@ -143,9 +143,9 @@ const deleteDevice = async(req,res)=>{
 const getSingleDevice= async(req,res)=>{
 
     /*Realizamos una busqueda dentro de la base de datos*/
-    const device = await Device.findById( req.params.id );
+    const device = await Device.findById( req.params.id ).lean();
 
-    console.log('device: ', device)
+    //console.log('device: ', device)
 
     //Importamos la conexion del servidor de Sockets
     const connectionSocket = require('../../lib/socketManager').connection();
@@ -186,18 +186,18 @@ const getSingleDevice= async(req,res)=>{
 
                 if(decoded.id===device.userOwnerId){
 
-                    console.log('Identificador: ', device.userOwnerId+'/'+device._id);
+                    //console.log('Identificador: ', device.userOwnerId+'/'+device._id);
 
                     //Enviamos por el socket
-                    connectionSocket.sendEvent('temperature', data.temperature);
-                    connectionSocket.sendEvent('humidity', data.humidity);
-                    connectionSocket.sendEvent('id', device.userOwnerId+'/'+device._id);
+                    connectionSocket.sendEvent(device._id + '/temperature', data.temperature);
+                    connectionSocket.sendEvent(device._id + '/humidity', data.humidity);
+                    connectionSocket.sendEvent(device._id + '/id', device.userOwnerId+'/'+device._id);
 
-                }else{
+                }/*else{
 
                     console.log('Identificador no valido: ', device.userOwnerId+'/'+device._id);
 
-                }
+                }*/
                 
             };     
 
