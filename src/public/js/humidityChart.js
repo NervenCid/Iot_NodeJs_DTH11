@@ -4,15 +4,26 @@ var dataHumidity = [
         domain: { x: [0, 1], y: [0, 1] },
         value: 0,
         title: {
-            text: "Variable recibida de la Pycom" },
+            text: "Humedad" },
             type: "indicator",
             mode: "gauge+number",
-            gauge: { axis: { range: [null, 60] } }
+            gauge: { axis: { range: [null, 100] } }
         }
     ];
 
 //Creamos una configuracion para dimensionar la grafica
-var layoutHumidity = { width: 600, height: 400 };
+var layoutHumidity = {
+    autosize: false,
+    width: 300,
+    height: 200,
+    margin: {
+        l: 30,
+        r: 30,
+        b: 2,
+        t: 10,
+        pad: 4
+      }
+};
 
 //Creamos la grafica
 Plotly.newPlot('humidityChart', dataHumidity, layoutHumidity);

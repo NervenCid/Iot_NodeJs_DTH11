@@ -4,7 +4,7 @@ var dataTemperature = [
         domain: { x: [0, 1], y: [0, 1] },
         value: 0,
         title: {
-            text: "Variable recibida de la Pycom" },
+            text: "Temperatura" },
             type: "indicator",
             mode: "gauge+number",
             gauge: { axis: { range: [null, 60] } }
@@ -12,7 +12,18 @@ var dataTemperature = [
     ];
 
 //Creamos una configuracion para dimensionar la grafica
-var layoutTemperature = { width: 600, height: 400 };
+var layoutTemperature = { 
+    autosize: false,
+    width: 300,
+    height: 200,
+    margin: {
+        l: 30,
+        r: 30,
+        b: 2,
+        t: 10,
+        pad: 4
+      }
+};
 
 //Creamos la grafica
 Plotly.newPlot('temperatureChart', dataTemperature, layoutTemperature);

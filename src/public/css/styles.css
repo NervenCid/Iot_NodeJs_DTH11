@@ -38,6 +38,15 @@ body {
     padding: 0;
 }
 
+.chartContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #264fc2;
+    margin: 1rem;
+    padding: 1rem;
+}
+
 @media (min-width: 992px) {
     .masthead {
         height: 100vh;
