@@ -5,7 +5,7 @@ const path = require('path');
 const passport = require("passport");
 
 //Importamos los modelos
-const User=require(path.join(__dirname, '..', '..', 'models', process.env.DATABASE_MODE, 'UserDB'));
+const User=require(path.join(__dirname, '..', '..', 'models', process.env.DATABASE_MODE || 'mongodb', 'UserDB'));
 
 //----------------------------------------------signin----------------------------------------------------
 
