@@ -43,7 +43,7 @@ require('./lib/passport');
 //Usamos el archivo .env
 //VERIFICAR
 //Opciones disponibles en '.env' para 'DATABASE_MODE': 'mongodb', 'postgres', 'firebase'
-require(path.join(__dirname, 'database', process.env.DATABASE_MODE));
+require(path.join(__dirname, 'database', process.env.DATABASE_MODE || 'mongodb'));
 
 //------------------------------------CONFIGURACIONES-----------------------------------
 
