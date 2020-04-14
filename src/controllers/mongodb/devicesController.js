@@ -116,9 +116,9 @@ const getEditDevice = async(req,res)=>{
 const editDevice = async(req,res)=>{
     
     //Obtenemos las propiedades del formulario
-    const { title, description } = req.body;
+    const { deviceName } = req.body;
     //Buscamos por 'id' y luego la actualizamos
-    await Device.findByIdAndUpdate(req.params.id, { title, description });
+    await Device.findByIdAndUpdate(req.params.id, { deviceName });
     req.flash("success_msg", "Parametros de dispositivo Modificados");//Mostramos el mensaje con flash (ver el archivo messaages.hbs)
     //Redireccionamos
     res.redirect('/devices');
@@ -129,6 +129,8 @@ const editDevice = async(req,res)=>{
 
 //Eliminamos el dispositivo
 const deleteDevice = async(req,res)=>{
+
+    console.log('Estoy aqui');
 
     //Eliminamos de la base de datos
     await Device.findByIdAndDelete(req.params.id);

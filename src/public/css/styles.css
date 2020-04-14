@@ -42,9 +42,15 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #264fc2;
+    /*background-color: #264fc2;*/
     margin: 1rem;
     padding: 1rem;
+}
+
+.deviceButtons{
+    display: grid;
+    gap: 1em;
+    padding: 1em;
 }
 
 @media (min-width: 992px) {

@@ -1,37 +1,49 @@
 <div class="row">
     {{#each devices}}
+
     <div class="col-md-3">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title d-flex justify-content-between align-items-center">
-                    {{ deviceName }} <a href="/devices/edit/{{_id}}"><i class="fas fa-edit"></i></a><section></section>
-                </h4>
 
-                <!--
-                <p>{{ userOwner }}</p>
-                <p>{{ token }}</p>
-                <p>{{ temperature }}</p>
-                <p>{{ humidity }}</p>
-                <p>{{ date }}</p>
-                -->
+        <div class="card text-center" style="width: 18rem;">
 
-                <!-- DETAILED VIEW -->
+            <div class="card-header bg-secondary">
+                <h3 class="card-title">{{ deviceName }}</h3>
+            </div>
 
-                <form action="/devices/{{_id}}?_method=GET" method="GET">
+            <div class="card-body">               
+
+                <h5 class="card-subtitle mb-2 text-left">Propietario:</h5>
+
+                <p class="card-text text-left">{{ userOwnerName }}</p>
+
+                <h5 class="card-subtitle mb-2 text-left">Fecha de creación:</h5>
+
+                <p class="card-text text-left">{{ date }}</p>
+
+                <form class="deviceButtons" action="/devices/{{_id}}?_method=GET" method="GET">
                     <!--el name="_method" es obligatorio para que funcione-->
                     <input type="hidden" name="_method" value="GET">
-                    <button type="submit" class="btn btn-danger btn-block btn-sm">Ver</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-eye"></i></button>
                 </form>
 
-                <!-- DELETE REQUEST -->
-                <form action="/devices/delete/{{_id}}?_method=DELETE" method="POST">
+                <form class="deviceButtons" action="/devices/edit/{{_id}}?_method=PUT" method="PUT">
+                    <!--el name="_method" es obligatorio para que funcione-->
+                    <input type="hidden" name="_method" value="PUT">
+                    <button type="submit" class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                </form>
+
+                <form class="deviceButtons" action="/devices/delete/{{_id}}?_method=DELETE" method="POST">
                     <!--el name="_method" es obligatorio para que funcione-->
                     <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" class="btn btn-info btn-block btn-sm">Eliminar</button>
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                 </form>
+                
+
             </div>
+            
         </div>
+
     </div>
+
     {{else}}
     <div class="card mx-auto">
         <div class="card-body">

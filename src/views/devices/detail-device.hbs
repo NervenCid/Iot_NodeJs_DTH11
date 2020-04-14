@@ -1,40 +1,220 @@
-<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Home</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
-  </li>
-</ul>
+<div class="container bg-secondary">
+  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+        aria-controls="pills-home" aria-selected="true">Medidores</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
+        aria-controls="pills-contact" aria-selected="false">Información de dispositivo</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+        aria-controls="pills-profile" aria-selected="false">Ejemplo de Configuracion del dispositivo</a>
+    </li>
+  </ul>
 
-<div class="tab-content" id="pills-tabContent">
-  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">...</div>
-  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+  <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
       <div>
-            <!--La clase 'chartContainer' es personalizada-->
-            <div class="chartContainer">
-                <!-- Plotly  dibujara la grafica dentro del elemento 'temperatureChart'-->
-                <div id='temperatureChart'>
-                </div>
-                <div class="chartContainer">
-                    <!-- Plotly  dibujara la grafica dentro del elemento 'humidityChart'-->
-                    <div id='humidityChart'>
-                    </div>
-                </div>
+        <!--La clase 'chartContainer' es personalizada-->
+        <div class="chartContainer">
+          <!-- Plotly  dibujara la grafica dentro del elemento 'temperatureChart'-->
+          <div id='temperatureChart'>
+          </div>
+          <div class="chartContainer">
+            <!-- Plotly  dibujara la grafica dentro del elemento 'humidityChart'-->
+            <div id='humidityChart'>
             </div>
+          </div>
         </div>
-  </div>
-  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
-</div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
 
+      <div class="card-header bg-secondary">
+        <h3 class="card-title">{{ device.deviceName }}</h3>
+      </div>
 
+      <h5 class="card-subtitle mb-2 text-left">Propietario:</h5>
 
+      <p class="card-text text-left">{{ device.userOwnerName }}</p>
 
+      <h5 class="card-subtitle mb-2 text-left">Id del Propietario del dispositivo:</h5>
 
+      <p class="card-text text-left">{{ device.userOwnerId }}</p>
 
+      <h5 class="card-subtitle mb-2 text-left">Id de dispositivo:</h5>
 
+      <p class="card-text text-left">{{ device._id }}</p>
 
+      <h5 class="card-subtitle mb-2 text-left">Token:</h5>
+
+      <p class="card-text text-left">{{ device.token }}</p>
+      
+    </div>
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+      Utilice este codigo en su dispositivo:
+      <div class="container">
+        <div class="row">
+          <code>
+          <pre style="max-height: 256px;">
+            #Importamos la libreria de 'mqtt'
+            from mqtt import MQTTClient
+
+            #Importamos el modulo para conexion wiFi
+            from network import WLAN
+
+            #Importamos los modulos de sistema
+            import gc
+            import machine
+            from machine import Pin
+            import time
+            import pycom
+            import os
+            from dth import DTH
+            print(os.uname())
+
+            #Recoleccion de basura automatica
+            gc.enable()
+
+            #Deshabilitamos el LED azul que se activa al inicio
+            pycom.heartbeat(False)
+
+            #Creamos un dato sintetico
+            data=0
+
+            ###########################################CONFIGURACION DEL SENSOR##################################################
+
+            #Pin de entrada de datos
+            th = DTH(Pin('G22', mode=Pin.OPEN_DRAIN),0)
+            time.sleep(0.2)
+
+            ############################################CONFIGURACION DEL WIFI####################################################
+
+            #Importamos el modulo personalizado de conexion de wifi
+            import connectwifi as cw
+
+            #Deshabilitamos el LED azul que se activa al inicio
+            pycom.heartbeat(False)
+
+            #mensaje de inicio
+            print('Starting ...')
+            #Conectamos al wiFi y pasamos las credenciales SEGUN cada red
+            cw.connect("Nombre de la red Wifi", "Password de la red WiFi")
+
+            ##############################################CONFIGURACION DEL MQTT###################################################
+
+            #Token del dispositivo
+            token="{{device.token}}""
+
+            #Credenciales de usuario y dispositivo
+            userId="{{device.userOwnerId}}""
+
+            deviceId="{{device._id}}"
+
+            #Definimos el 'topic' de publicacion (para enviar mensajes)
+            topic_pub=userId+"/"+deviceId
+
+            #Definimos el 'timeout'
+            timeout=2
+
+            #Creamos una variable vacia para almcenar los mensajes
+
+            #Declaramos una funcion 'callback' para recibir los mensajes
+            #Esta funcion solo puede recibir dos parametros por lo tanto para acceder 
+            #A los mensajes con otras funciones o vartiables globales
+            def sub_cb(topic, msg):
+                #Si existe un mensaje
+                if msg:
+                    #Mostramos por pantalla
+                    print("Recibiendo datos del servidor MQTT: \n Topic: {0}, Message {1}".format(topic, msg)) 
+                    #Asignamos el mensaje recibido a la variable global
+                    myMessage=msg.decode('utf8')
+                    pycom.rgbled(int(myMessage))
+
+            #Creamos el cliente de 'mqtt'
+            client = MQTTClient(
+                #Definimos el 'client_id', puede ser cualquier 'string'
+                "demo",
+                #Definimos la 'url' del servidor 'mqtt'
+                server="54.190.82.243",
+                #Definimos el púerto VERIFICAR primero
+                port=1883)
+
+            #Configuramos el time out en el cliente
+            client.settimeout = timeout
+
+            #Configuramos el 'callback' en el cliente
+            client.set_callback(sub_cb)
+
+            #Tratamos de hacer la conexion
+            try:
+                #Conectamos
+                client.connect()
+                #Nos suscribimos a un 'topic'
+                client.subscribe(topic=topic_sub)
+                #Verificamos si hay comunicacion entrante
+                #Lo que se necesite hacer al recibir datos debe hacerse dentro del 'callback'
+                client.check_msg()
+                #Enviamos al servidor un mensaje de prueba
+                client.publish(
+                    #Este es el nombre del 'topic' debe ser el mismo en el servidor de aplicacion
+                    topic_pub,
+                    #Enviamos un mensaje de prueba
+                    "Hola servidor")
+                #Desconectamos 
+                #client.disconnect()
+
+                print('Conexion exitosa')
+
+            except OSError as error:
+                #En caso de error forzamos la reconexion reiniciando la tarjeta
+                print('Error en la conexion: {0}, \n Intentanto reconectar...'.format(error))
+                machine.reset()
+
+            ##########################################################################################################################
+
+            #Ciclo principal
+            while True:
+
+                #Corremos el recolector de basura
+                gc.collect()
+
+                #En cada ciclo tratamos de hacer la conexion y reiniciamos cuando se rompa
+                try:
+
+                    #Conectamos
+                    #client.connect()
+                    #Nos suscribimos al 'topic'
+                    client.subscribe(topic_sub)
+                    #Verificamos si hay comunicacion entrante
+                    #Lo que se necesite hacer al recibir datos debe hacerse dentro del 'callback'
+                    client.check_msg()
+                    
+                    result = th.read()
+                    
+                    if result.is_valid():
+                        data={"token": token, "temperature" : result.temperature, "humidity": result.humidity}
+                        
+                    #Publicamos en continuo notificaciones al servidor
+                    print("Enviando un dato: ", data)
+                    client.publish(topic=topic_pub, msg=str(data).encode('utf-8'))
+
+                    #Desconectamos 
+                    #client.disconnect()
+                    
+                except OSError as error:
+                    #En caso de error forzamos la reconexion
+                    print('Error en la conexion: {0} \n Intentanto reconectar...'.format(error))
+                    machine.reset()
+
+          </pre>
+          </code>
+        </div>
         
+      </div>      
+    </div>
+  </div>
+
+</div>

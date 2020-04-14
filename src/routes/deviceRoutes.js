@@ -41,14 +41,14 @@ router.post('/devices/add', isLoggedIn, AddDevice);
 //Metodo 'GET' para renderizar el formulario de edicion (ver el archivo 'edit-device.hbs') recibimos 'id' de dispositivo
 router.get('/devices/edit/:id', isLoggedIn, getEditDevice);
 
-//Editamos mediante el metodo 'PUT'
-router.put('/devices/edit/:id', isLoggedIn, editDevice);
+//Editamos mediante el metodo 'POST'
+router.post('/devices/edit/:id', isLoggedIn, editDevice);
 
 
 //-------------------------------------Accion: Eliminar un dispositivo-------------------------------------
 
-//Metodo 'DELETE' para eliminar usando el 'id'
-router.delete('/devices/delete/:id', isLoggedIn, deleteDevice);
+//Metodo 'POST' para eliminar usando el 'id'
+router.post('/devices/delete/:id', isLoggedIn, deleteDevice);
 
 //---------------------------------Accion: Mostrar el dispositivo en detalle--------------------------------
 
