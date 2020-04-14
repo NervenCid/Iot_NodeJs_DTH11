@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken');
 const config =require('../../lib/tokenConf');
 
 //Importamos los modelos
-const Device=require(path.join(__dirname, '..', '..', 'models', process.env.DATABASE_MODE, 'DeviceDB'));
+const Device=require(path.join(__dirname, '..', '..', 'models', process.env.DATABASE_MODE || 'mongodb', 'DeviceDB'));
 
 //--------------------------------Accion: Obtener todos los dispositivos-----------------------------------
 

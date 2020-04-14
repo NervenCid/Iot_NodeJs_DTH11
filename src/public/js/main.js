@@ -1,7 +1,7 @@
 //Defeinimos la direccion del servidor
 //VERIFICAR PRIMERO
-const host = 'http://192.168.1.106:3000';
-//const host = 'http://54.190.82.243:3000';
+//const host = 'http://192.168.1.106:3000';
+const host = 'http://54.190.82.243:3000';
 
 //Almacenamos el dato proveniente del servidor
 let sensorStatus = 0;

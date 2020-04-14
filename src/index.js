@@ -23,7 +23,8 @@ async function main(){
     await socketManager.connect(server);
 
     //Conectamos al servidor 'mqtt'
-    await mqttManager.connect('mqtt://192.168.1.106');
+    //await mqttManager.connect('mqtt://192.168.1.106');
+    await mqttManager.connect('mqtt://54.190.82.243');
 
     //Importamos la conexion del servidor websockets: solo pruebas
     //const connectionSocket = require('./helpers/socketManager').connection();
